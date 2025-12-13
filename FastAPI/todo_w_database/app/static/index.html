@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Todo</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="app">
+    <h1>todo</h1>
+
+    <form id="todo-form" class="todo-form">
+        <input
+            type="text"
+            id="title"
+            placeholder="Add a task..."
+            required
+        />
+        <button type="submit">+</button>
+    </form>
+
+    <div class="filters">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="pending">Pending</button>
+        <button data-filter="completed">Completed</button>
+    </div>
+
+    <ul id="todo-list" class="todo-list"></ul>
+</div>
+
+<!-- JS comes from separate file -->
+<script src="/static/script.js"></script>
+
+</body>
+</html>

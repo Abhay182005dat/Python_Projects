@@ -1,0 +1,32 @@
+router → defines routes
+app → includes router
+
+database.py
+    Engine → connects to DB
+    Session → lets us talk to DB
+    Other files will reuse this
+
+class Todo  → Python class
+__tablename__ → DB table name
+Columns → table columns
+
+
+if you dont want to use Depends then you will have to manually call db like this
+db_gen = get_db()
+db = next(db_gen)
+
+What happens step-by-step 🧠
+
+FastAPI sees Depends(get_db)
+FastAPI calls get_db()
+Inside get_db():
+db = SessionLocal()
+
+SessionLocal() creates a Session object
+
+That Session is:
+yielded
+injected into db
+Your route uses db
+After request → db.close()
+
