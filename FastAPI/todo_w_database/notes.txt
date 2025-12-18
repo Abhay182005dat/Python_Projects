@@ -30,3 +30,90 @@ injected into db
 Your route uses db
 After request → db.close()
 
+
+# router = APIRouter(                                if you apply this then there is no need to put user_id : str = Depends(get_current_user)
+#     dependencies=[Depends(get_current_user)]       in every important functions cause you are checking from the router itself
+# )                                                 (also change .get in login to .post for minimal change so that you can login otherwise login itself will be blocked)
+#                                                   and remove the user_id : str = Depends(get_current_user) from /protected for authorisation
+
+
+```````````````````````````````````````````` about JWT `````````````````````````````````````````````````````````````
+FULL FLOW (step by step)
+🟢 STEP 1: Client asks for token
+
+You (client / Swagger) do:
+POST /login
+What happens inside backend:
+Backend creates a JWT
+JWT payload:
+{ "sub": "123", "exp": ... }
+Backend signs it with SECRET_KEY
+Backend returns:
+{
+  "access_token": "<JWT>",
+  "token_type": "bearer"
+}
+👉 This is the ONLY time token is created.
+
+🟢 STEP 2: Client stores token
+Swagger:
+Stores JWT internally after you click Authorize
+(Frontend would store it in localStorage/cookie later)
+
+🟢 STEP 3: Client calls protected API
+
+You call:
+GET /protected
+Swagger automatically adds:
+Authorization: Bearer <JWT>
+
+🟢 STEP 4: FastAPI intercepts request (IMPORTANT)
+
+Before /protected runs, FastAPI sees this:
+user_id: str = Depends(get_current_user)
+So FastAPI says:
+“Wait. I must run get_current_user() FIRST.”
+
+🟢 STEP 5: JWT is extracted
+
+Inside get_current_user:
+
+token = Depends(oauth2_scheme)
+
+FastAPI:
+Looks at request headers
+Extracts:
+Authorization: Bearer <JWT>
+Passes <JWT> to the function
+
+🟢 STEP 6: JWT is verified
+
+Inside get_current_user:
+payload = decode_access_token(token)
+
+That does:
+Verify signature using SECRET_KEY
+Check expiry (exp)
+Decode payloa
+If ANY fail → 401 Unauthorized
+
+🟢 STEP 7: Identity is extracted
+
+Payload:
+{ "sub": "123", "exp": ... }
+
+So:
+return payload["sub"]
+Now FastAPI knows:
+“This request belongs to user 123”
+
+🟢 STEP 8: Protected route executes
+
+Finally:
+
+def protected(user_id: str = Depends(get_current_user)):
+
+Receives:
+user_id = "123"
+Returns:
+{ "message": "Hello user 123" }

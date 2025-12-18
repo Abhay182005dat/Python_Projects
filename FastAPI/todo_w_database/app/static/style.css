@@ -1,3 +1,18 @@
+/* Minimal Sans-Serif Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    /* Minimal Dark Palette */
+    --bg-color: #050505;       /* Almost Black */
+    --card-bg: #121212;        /* Matte Dark Gray */
+    --border-color: #2a2a2a;   /* Subtle Borders */
+    --text-main: #ededed;      /* Off-white for readability */
+    --text-muted: #888888;
+    --accent: #fff;            /* Stark white accent for minimal feel */
+    --accent-blue: #7dd3fc;    /* Icy blue for focus/active states */
+    --danger: #cf6679;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,170 +20,333 @@
 body {
     margin: 0;
     height: 100vh;
-    font-family: "Inter", system-ui, sans-serif;
-
-    /* dark but not black */
-    background: linear-gradient(
-        135deg,
-        #1e1f26,
-        #23242c
-    );
-
+    font-family: "Inter", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #e6e6eb;
+    overflow: hidden;
+    position: relative;
 }
 
-.app {
-    width: 420px;
-    padding: 28px;
-    border-radius: 18px;
+/* --- CSS-Only Parallax Snowfall --- */
+/* We use pseudo-elements to create layers of snow without touching HTML */
 
-    /* slightly lighter card */
-    background: linear-gradient(
-        180deg,
-        #2a2c36,
-        #242631
-    );
-
-    box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+body::before, body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40% 70%, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 50% 160%, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 80% 120%, #fff, rgba(0,0,0,0));
+    background-size: 600px 600px;
+    animation: snow 10s linear infinite;
+    opacity: 0.6;
 }
 
-h1 {
+body::after {
+    background-image: 
+        radial-gradient(3px 3px at 10% 20%, #fff, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 90% 40%, #fff, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 15% 80%, #fff, rgba(0,0,0,0));
+    background-size: 400px 400px;
+    animation: snow 6s linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes snow {
+    0% { transform: translateY(-600px); }
+    100% { transform: translateY(0); }
+}
+
+
+/* --- Main Containers --- */
+.app, .login {
+    width: 400px;
+    padding: 40px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    
+    /* Smooth fade in */
+    animation: fadeUp 0.5s ease-out;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Typography */
+h1, h2 {
     text-align: center;
-    font-weight: 500;
-    margin-bottom: 24px;
-    color: #f3f4f6;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
 }
 
+.login h2::after {
+    content: "Winter Edition";
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* --- Forms & Inputs --- */
+input {
+    width: 100%;
+    padding: 16px;
+    background: #000;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+    margin-bottom: 12px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background: #080808;
+}
+
+input::placeholder {
+    color: #444;
+}
+
+/* --- Buttons --- */
+button {
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+/* Login specific buttons */
+#login-form button {
+    width: 100%;
+    padding: 16px;
+    margin-top: 8px;
+    background: var(--text-main);
+    color: black;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+#login-form button:hover {
+    background: var(--accent-blue);
+    transform: translateY(-1px);
+}
+
+/* Login toggle links */
+.login p {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+#toggle-auth {
+    background: none;
+    border: none;
+    color: var(--text-main);
+    text-decoration: underline;
+    font-size: 13px;
+    padding: 0 5px;
+}
+
+#toggle-auth:hover {
+    color: var(--accent-blue);
+}
+
+/* --- Todo Application Specifics --- */
 .todo-form {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 24px;
+    margin-top: 20px;
 }
 
 .todo-form input {
-    flex: 1;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-
-    background: #343646;
-    color: #f5f5f7;
-    font-size: 14px;
-}
-
-.todo-form input::placeholder {
-    color: #a1a3b3;
-}
-
-.todo-form input:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(130, 170, 255, 0.35);
+    margin-bottom: 0;
+    background: #0a0a0a;
 }
 
 .todo-form button {
-    width: 48px;
-    border-radius: 12px;
+    width: 50px;
+    background: var(--border-color);
     border: none;
-
-    /* soft accent color */
-    background: linear-gradient(
-        135deg,
-        #6f85ff,
-        #8b9cff
-    );
-
-    color: #ffffff;
-    font-size: 22px;
-    cursor: pointer;
+    border-radius: 8px;
+    color: var(--text-main);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .todo-form button:hover {
-    filter: brightness(1.1);
+    background: var(--text-main);
+    color: black;
 }
 
+/* Filters */
+.filters {
+    display: flex;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.filters button {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0;
+}
+
+.filters button:hover {
+    color: var(--text-main);
+}
+
+.filters button.active {
+    color: var(--accent-blue);
+}
+
+/* Todo List Items */
 .todo-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    max-height: 320px;
+    overflow-y: auto;
 }
 
 .todo-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    padding: 14px 16px;
-    margin-bottom: 12px;
-    border-radius: 14px;
-
-    background: linear-gradient(
-        135deg,
-        #323447,
-        #2b2d3c
-    );
-
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    padding: 12px 0;
+    border-bottom: 1px solid #1a1a1a;
+    transition: 0.2s;
 }
 
-.todo-item span {
-    font-size: 14px;
-    color: #e8e9f0;
+.todo-item:last-child {
+    border-bottom: none;
 }
 
-.todo-item button {
-    background: transparent;
-    border: none;
-    color: #b5b7c7;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.todo-item button:hover {
-    color: #ff7a7a;
+.todo-item:hover span {
+    color: var(--accent-blue);
 }
 
 .todo-left {
     display: flex;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
 }
 
+/* Custom Minimal Checkbox */
 .todo-left input {
-    width: 16px;
-    height: 16px;
+    /* Reset */
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 4px;
     cursor: pointer;
+    position: relative;
+}
+
+.todo-left input:checked {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+/* Check icon */
+.todo-left input:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid black; /* Black check on blue bg */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.todo-item span {
+    font-size: 14px;
+    color: var(--text-main);
+    transition: color 0.2s;
 }
 
 .todo-item.completed span {
     text-decoration: line-through;
-    color: #9aa0b4;
-    opacity: 0.7;
-}
-.filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
+    color: #444;
 }
 
-.filters button {
-    flex: 1;
-    padding: 8px;
-    border-radius: 8px;
+/* Delete Button */
+.todo-item button {
+    background: transparent;
     border: none;
-    background: #343646;
-    color: #e6e6eb;
-    cursor: pointer;
-    font-size: 13px;
+    color: #333;
+    font-size: 20px;
+    line-height: 1;
+    padding: 0 8px;
 }
 
-.filters button.active {
-    background: linear-gradient(135deg, #6f85ff, #8b9cff);
-    color: white;
+.todo-item button:hover {
+    color: var(--danger);
+}
+
+/* Logout */
+#logout-btn {
+    width: 100%;
+    margin-top: 24px;
+    background: transparent;
+    border: 1px dashed var(--border-color);
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+#logout-btn:hover {
+    border-style: solid;
+    border-color: var(--text-muted);
+    color: var(--text-main);
+}
+
+/* Scrollbar styling for list */
+.todo-list::-webkit-scrollbar {
+    width: 4px;
+}
+.todo-list::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
 }

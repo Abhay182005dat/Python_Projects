@@ -2,19 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<div class="app">
-    <h1>todo</h1>
+<div class="snow-container">
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+    <div class="snow"></div>
+</div>
+
+<div id="login-section" class="login glass-card">
+    <h2 id="auth-title">Welcome Back</h2>
+    <p class="subtitle">Please enter your details</p>
+    
+    <form id="login-form">
+        <div class="input-group">
+            <input type="email" id="email" placeholder="Email" required />
+        </div>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Password" required />
+        </div>
+        <button type="submit" id="auth-btn" class="primary-btn">Login</button>
+    </form>
+    
+    <p id="login-error" class="error-msg"></p>
+    
+    <div class="auth-toggle">
+        <span id="toggle-text">Don't have an account?</span>
+        <button id="toggle-auth">Register</button>
+    </div>
+</div>
+
+<div class="app glass-card" id="todo-section">
+    <h1>Tasks</h1>
 
     <form id="todo-form" class="todo-form">
         <input
             type="text"
             id="title"
-            placeholder="Add a task..."
+            placeholder="Add a new task..."
             required
         />
         <button type="submit">+</button>
@@ -23,13 +72,14 @@
     <div class="filters">
         <button data-filter="all" class="active">All</button>
         <button data-filter="pending">Pending</button>
-        <button data-filter="completed">Completed</button>
+        <button data-filter="completed">Done</button>
     </div>
 
     <ul id="todo-list" class="todo-list"></ul>
+    
+    <button id="logout-btn" class="logout-link">Logout</button>
 </div>
 
-<!-- JS comes from separate file -->
 <script src="/static/script.js"></script>
 
 </body>
