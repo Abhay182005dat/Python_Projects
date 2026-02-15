@@ -1,0 +1,10 @@
+link for dagshub remote mlflow server - https://dagshub.com/Abhay182005dat/Python_Projects.mlflow
+
+import dagshub
+dagshub.init(repo_owner='Abhay182005dat', repo_name='Python_Projects', mlflow=True)
+
+import mlflow
+with mlflow.start_run():
+  mlflow.log_param('parameter name', 'value')
+  mlflow.log_metric('metric name', 1)
+
