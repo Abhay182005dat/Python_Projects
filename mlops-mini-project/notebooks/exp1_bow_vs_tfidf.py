@@ -160,3 +160,4 @@ with mlflow.start_run(run_name='All Experiments') as parent_run:
                 print(f'Precision : {precision}')
                 print(f'Recall : {recall}')
                 print(f'F1 score : {f1}')
+                
