@@ -1,4 +1,4 @@
 [core]
-    remote = myremote
-['remote "myremote"']
-    url = C:\Users\abhay\AppData\Local\Temp
+    remote = s3remote
+['remote "s3remote"']
+    url = s3://emotion-detection-bucketv1
