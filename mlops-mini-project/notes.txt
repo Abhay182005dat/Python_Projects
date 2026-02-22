@@ -9,3 +9,10 @@ with mlflow.start_run():
   mlflow.log_metric('metric name', 1)
 
  dvc remote remove myremote -> removes the myremote
+
+
+ to make ci/cd make a directory called .github inside that make workflows then write your yaml file
+ 
+The pipe | in YAML is a multi-line string literal indicator. It tells YAML that the content following it spans multiple lines and should preserve newlines.
+In your GitHub Actions workflow, this is useful because it allows you to write multiple shell commands on separate lines:
+
