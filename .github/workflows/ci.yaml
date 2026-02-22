@@ -21,7 +21,7 @@ jobs:
 
       - name: run pipeline
         env:
-          mlopsmini: ${{ secrets.MLOPSMINI }}
+          MLOPSMINI: ${{ secrets.MLOPSMINI }}
         working-directory: ./mlops-mini-project
         run: |
           dvc repro
