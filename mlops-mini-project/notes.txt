@@ -20,3 +20,14 @@ while running your ci be aware of authorizations required by dagshub !
 thats why you have to make a dagshub token and authenticate that in your code
 where you are using it.
 -> write the secret in the security/actions section of github repo settings
+
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+above is just a code bunch too add caching while installing packages just speeds up installing packages from requirements file
