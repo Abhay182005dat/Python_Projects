@@ -3,10 +3,26 @@ import pandas as pd
 import pickle
 import json
 from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_auc_score
-import logging , mlflow , dagshub
+import logging , mlflow , dagshub , os
 
-mlflow.set_tracking_uri('https://dagshub.com/Abhay182005dat/Python_Projects.mlflow')
-dagshub.init(repo_owner='Abhay182005dat', repo_name='Python_Projects', mlflow=True)
+# mlflow.set_tracking_uri('https://dagshub.com/Abhay182005dat/Python_Projects.mlflow')
+# dagshub.init(repo_owner='Abhay182005dat', repo_name='Python_Projects', mlflow=True)
+
+# set up dagshub credentials for MLflow tracking
+dagshub_token = os.getenv('MLOPSMINI')
+if not dagshub_token:
+    raise EnvironmentError("MLOPSMINI environment variable is not set")
+
+os.environ['MLFLOW_TRACKING_USERNAME'] = dagshub_token
+os.environ['MLFLOW_TRACKING_PASSWORD'] = dagshub_token
+
+dagshub_url = 'https://dagshub.com'
+repo_owner = 'Abhay182005dat'
+repo_name = 'Python_Projects'
+
+# setup mlflow tracking uri
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
+
 
 # logging configuration
 logger = logging.getLogger('model_evaluation')

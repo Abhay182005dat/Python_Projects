@@ -20,6 +20,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: run pipeline
+        env:
+          mlopsmini: ${{ secrets.MLOPSMINI }}
         working-directory: ./mlops-mini-project
         run: |
           dvc repro

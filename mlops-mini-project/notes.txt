@@ -15,4 +15,8 @@ with mlflow.start_run():
  
 The pipe | in YAML is a multi-line string literal indicator. It tells YAML that the content following it spans multiple lines and should preserve newlines.
 In your GitHub Actions workflow, this is useful because it allows you to write multiple shell commands on separate lines:
-
+ 
+while running your ci be aware of authorizations required by dagshub !
+thats why you have to make a dagshub token and authenticate that in your code
+where you are using it.
+-> write the secret in the security/actions section of github repo settings
