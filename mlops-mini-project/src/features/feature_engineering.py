@@ -1,9 +1,10 @@
 import numpy as np
 import pandas as pd
 import os
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 import yaml
 import logging
+import pickle
 
 # logging configuration
 logger = logging.getLogger('feature_engineering')
@@ -53,10 +54,10 @@ def load_data(file_path: str) -> pd.DataFrame:
         logger.error('Unexpected error occurred while loading the data: %s', e)
         raise
 
-def apply_tfidf(train_data: pd.DataFrame, test_data: pd.DataFrame, max_features: int) -> tuple:
+def apply_bow(train_data: pd.DataFrame, test_data: pd.DataFrame, max_features: int) -> tuple:
     """Apply TfIdf to the data."""
     try:
-        vectorizer = TfidfVectorizer(max_features=max_features)
+        vectorizer = CountVectorizer(max_features=max_features)
 
         X_train = train_data['content'].values
         y_train = train_data['sentiment'].values
@@ -71,6 +72,8 @@ def apply_tfidf(train_data: pd.DataFrame, test_data: pd.DataFrame, max_features:
 
         test_df = pd.DataFrame(X_test_bow.toarray())
         test_df['label'] = y_test
+
+        pickle.dump(vectorizer , open('models/vectorizer.pkl' , 'wb'))
 
         logger.debug('Bag of Words applied and data transformed')
         return train_df, test_df
@@ -96,10 +99,10 @@ def main():
         train_data = load_data('./data/interim/train_processed.csv')
         test_data = load_data('./data/interim/test_processed.csv')
 
-        train_df, test_df = apply_tfidf(train_data, test_data, max_features)
+        train_df, test_df = apply_bow(train_data, test_data, max_features)
 
-        save_data(train_df, os.path.join("./data", "processed", "train_tfidf.csv"))
-        save_data(test_df, os.path.join("./data", "processed", "test_tfidf.csv"))
+        save_data(train_df, os.path.join("./data", "processed", "train_bow.csv"))
+        save_data(test_df, os.path.join("./data", "processed", "test_bow.csv"))
     except Exception as e:
         logger.error('Failed to complete the feature engineering process: %s', e)
         print(f"Error: {e}")

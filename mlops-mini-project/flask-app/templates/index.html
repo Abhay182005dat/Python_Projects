@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sentiment Analysis</h1>
+        </div>
+        
+        <div class="card">
+            <form action="/predict" method="post">
+                <label for="text" class="label">Enter text:</label>
+                <textarea 
+                    id="text"
+                    name="text" 
+                    class="textarea"
+                    placeholder="Type your text..."
+                    required>{% if input_text %}{{ input_text }}{% endif %}</textarea>
+                <button type="submit" class="submit-btn">Analyze</button>
+            </form>
+        </div>
+        
+        {% if show_result %}
+        <div class="result-card">
+            <div class="result-header">Analysis Result</div>
+            <div class="result-content">
+                <div class="sentiment-badge {{ 'Ha' if prediction == 'Happy' else 'Sad' }}">
+                    {{ prediction }}
+                </div>
+                <p class="result-text">Your text sentiment is <strong>{{ prediction }}</strong></p>
+            </div>
+            <button onclick="window.location.href='/'" class="reset-btn">Analyze Another</button>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
