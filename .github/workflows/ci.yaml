@@ -33,3 +33,10 @@ jobs:
         working-directory: ./mlops-mini-project
         run: |
           dvc repro
+
+      - name: run tests
+        env:
+          MLOPSMINI: ${{ secrets.MLOPSMINI }}
+        working-directory: ./mlops-mini-project
+        run: |
+          python -m unittest tests/test_model.py
