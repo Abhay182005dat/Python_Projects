@@ -47,3 +47,10 @@ jobs:
           MLOPSMINI: ${{ secrets.MLOPSMINI }}
         working-directory: ./mlops-mini-project
         run: python scripts/promote_model.py
+
+      - name: Run Flask app tests
+        if : success()
+        env:
+          MLOPSMINI: ${{ secrets.MLOPSMINI }}
+        working-directory: ./mlops-mini-project
+        run: python -m unittest tests/test_flask.py
