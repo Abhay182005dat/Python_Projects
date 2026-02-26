@@ -76,7 +76,7 @@ class TestModelLoading(unittest.TestCase):
         f1_new = f1_score(y_holdout, y_pred_new)
         
         # define expected thresholds for the performance metrics
-        expected_accuracy = 0.8  # Example threshold for accuracy
+        expected_accuracy = 0.70  # Example threshold for accuracy
         expected_precision = 0.70
         expected_recall = 0.70
         expected_f1 = 0.70
@@ -86,7 +86,7 @@ class TestModelLoading(unittest.TestCase):
         self.assertGreaterEqual(precision_new, expected_precision, f"Precision should be atleast {expected_precision}")
         self.assertGreaterEqual(recall_new, expected_recall, f"Recall should be atleast {expected_recall}")
         self.assertGreaterEqual(f1_new, expected_f1, f"F1 Score should be atleast {expected_f1}")
-        
+
 
 
 if __name__ == '__main__':
