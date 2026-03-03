@@ -68,9 +68,9 @@ jobs:
         if: success()
         working-directory: ./mlops-mini-project
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/mlops-mini-project:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/emotion2:latest .
 
       - name: Push Docker image to Docker Hub
         if: success()
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/mlops-mini-project:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/emotion2:latest
