@@ -31,3 +31,14 @@ where you are using it.
             ${{ runner.os }}-pip-
 
 above is just a code bunch too add caching while installing packages just speeds up installing packages from requirements file
+
+pipreqs . --force -> gives a subset of requirements inside a particular directory
+
+docker build -t abhay31d/emotion1:v1.1 . --> Builds a Docker image from the current directory’s Dockerfile and tags it as abhay31d/emotion1:latest.
+
+docker run -p 8888:5000 -e MLOPSMINI=your_token abhay31d/emotion1 → Runs the Docker container from the image, maps host
+port 8888 to container port 5000, and passes an environment variable (MLOPSMINI) into the container.
+
+docker push abhay31d/emotion1:v1.1
+
+docker pull abhay31d/emotion:v1.1

@@ -29,7 +29,7 @@
         <div class="result-card">
             <div class="result-header">Analysis Result</div>
             <div class="result-content">
-                <div class="sentiment-badge {{ 'Ha' if prediction == 'Happy' else 'Sad' }}">
+                <div class="sentiment-badge {{ 'Happy' if prediction == 'Happy' else 'Sad' }}">
                     {{ prediction }}
                 </div>
                 <p class="result-text">Your text sentiment is <strong>{{ prediction }}</strong></p>
