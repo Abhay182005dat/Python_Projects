@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from flask import Flask , render_template , request
 import mlflow , dagshub
-from flask_app.preprocessing import normalize_text
+from preprocessing import normalize_text
 import pickle
 from dotenv import load_dotenv
 load_dotenv()
