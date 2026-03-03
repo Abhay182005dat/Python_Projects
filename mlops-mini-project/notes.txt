@@ -42,3 +42,14 @@ port 8888 to container port 5000, and passes an environment variable (MLOPSMINI)
 docker push abhay31d/emotion1:v1.1
 
 docker pull abhay31d/emotion:v1.1
+
+Gunicorn expects:
+  <module_path>:<flask_object>
+So:
+  flask_app.app:app
+
+means:
+flask_app.app → Python module path
+app → Flask instance inside that module
+
+When you set: PYTHONPATH: flask_app ,Python will treat : mlops-mini-project/flask_app  as the root directory.
