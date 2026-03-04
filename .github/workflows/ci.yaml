@@ -87,4 +87,5 @@ jobs:
               docker stop my-app || true
               docker rm my-app || true
               docker run -p 80:5000 --name my-app \
-              -e MLOPSMINI=${{ secrets.MLOPSMINI }} \ ${{ secrets.DOCKER_USERNAME }}/emotion2:latest
+              -e MLOPSMINI=${{ secrets.MLOPSMINI }} \ 
+              ${{ secrets.DOCKER_USERNAME }}/emotion2:latest

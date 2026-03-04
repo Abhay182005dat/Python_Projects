@@ -77,5 +77,7 @@ secrets.EC2_HOST -> put your ipv4 DNS address in secrets of github
 secrets.EC2_USER  -> your username generally ubuntu
 secrets.EC2_SSH_KEY  -> its the pem file which you download via key pair during initialisation
 
+MLOPSMINI=${{ secrets.MLOPSMINI }} \ , the '\' here just tells that execute the commands on next line too.
+
               docker stop my-app || true  -> docker stops any app called my-app if its running ,(or statement) the true is for if my-app is not present then the true lets the command pass 
               docker rm my-app || true    -> docker removes any app called my-app if its present
