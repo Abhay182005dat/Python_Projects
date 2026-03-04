@@ -67,7 +67,7 @@ aws security group
 ```````````````Ec2 , ECR  foe cicd ``````````````````````
 create an ec2 instance 
 sudo apt-get update
-sudo-apt-get install -y docker.io
+sudo apt-get install -y docker.io
 sudo systemctl start docker
 sudo systemctl enable docker 
 sudo usermod -aG docker $USER -> with this you can run commands without the use of "sudo" , replace $user with your EC2 instance user name
