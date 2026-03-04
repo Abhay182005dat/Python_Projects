@@ -53,3 +53,29 @@ flask_app.app → Python module path
 app → Flask instance inside that module
 
 When you set: PYTHONPATH: flask_app ,Python will treat : mlops-mini-project/flask_app  as the root directory.
+
+``````````````````````````` Manual for EC2 / AWS Stuff ```````````````````````````````````````````````````````
+create an EC2 instance
+sudo apt-get update
+sudo apt-get install -y docker.io 
+sudo systemctl start docker 
+sudo systemctl enable docker
+docker pull abhay31d/emotion2:latest
+docker run -p 80:5000 MLOPSMINI=your_token abhay31d/emotion2:latest 
+aws security group
+
+```````````````Ec2 , ECR  foe cicd ``````````````````````
+create an ec2 instance 
+sudo apt-get update
+sudo-apt-get install -y docker.io
+sudo systemctl start docker
+sudo systemctl enable docker 
+sudo usermod -aG docker $USER -> with this you can run commands without the use of "sudo" , replace $user with your EC2 instance user name
+exit 
+
+secrets.EC2_HOST -> put your ipv4 DNS address in secrets of github 
+secrets.EC2_USER  -> your username generally ubuntu
+secrets.EC2_SSH_KEY  -> its the pem file which you download via key pair during initialisation
+
+              docker stop my-app || true  -> docker stops any app called my-app if its running ,(or statement) the true is for if my-app is not present then the true lets the command pass 
+              docker rm my-app || true    -> docker removes any app called my-app if its present
